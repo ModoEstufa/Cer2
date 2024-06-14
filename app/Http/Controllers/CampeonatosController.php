@@ -6,7 +6,7 @@ use App\Models\Campeonato;
 use Illuminate\Http\Request;
 
 class CampeonatosController
-{
+{   
     /**
      * Display a listing of the resource.
      */
@@ -62,5 +62,20 @@ class CampeonatosController
     public function destroy(Campeonato $campeonato)
     {
         //
+    }
+
+    public function equipos($id)
+    {
+        // Encuentra el campeonato por ID
+        $campeonato = Campeonato::find($id);
+
+        if (!$campeonato) {
+            return response()->json(['error' => 'Campeonato no encontrado'], 404);
+        }
+
+        // Obtén los equipos asociados al campeonato
+        $equipos = $campeonato->equipos()->get(); // Asumiendo que tienes una relación definida en el modelo Campeonato
+
+        return response()->json($equipos);
     }
 }

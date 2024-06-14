@@ -27,4 +27,6 @@ Route::resource('/equipos', EquiposController::class);
 Route::resource('/jugadores', JugadoresController::class);
 Route::resource('/partidos', PartidosController::class);
 Route::resource('/campeonatos', CampeonatosController::class);
-route::resource('/resultados', ResultadosController::class);
+Route::resource('/resultados', ResultadosController::class);
+Route::get('/campeonatos/{id}/equipos', [CampeonatosController::class, 'equipos']);
+

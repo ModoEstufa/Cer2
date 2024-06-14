@@ -10,12 +10,21 @@ class JugadoresController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jugadores = Jugador::orderBy('nombre')->get();
-        return $jugadores;
-    }
+        // Obtener el parámetro 'equipo_id' de la solicitud
+        $equipoId = $request->query('equipo_id');
 
+        // Si se proporciona 'equipo_id', filtrar los jugadores
+        if ($equipoId) {
+            $jugadores = Jugador::where('equipo_id', $equipoId)->get();
+        } else {
+            // De lo contrario, devolver todos los jugadores
+            $jugadores = Jugador::all();
+        }
+
+        return response()->json($jugadores);
+    }
     /**
      * Show the form for creating a new resource.
      */
